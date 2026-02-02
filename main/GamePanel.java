@@ -1,12 +1,8 @@
 package main;
-
 import java.awt.Graphics;
-import java.awt.RenderingHints.Key;
 import java.awt.*;
 import javax.swing.JPanel;
-
 import Entity.player;
-
 
 public class GamePanel extends JPanel implements Runnable {
    
@@ -53,48 +49,43 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
 
          double drawInterval = 1000000000 / fps;
-         double nextDrawTime = System.nanoTime() + drawInterval;
-
-
-        while(gameThread != null) {
-            
-           double currentTime = System.nanoTime();
-           double remainingTime = nextDrawTime - currentTime;
-           if (remainingTime < 0) {
-              nextDrawTime = currentTime + drawInterval;
-           } else {
-              try {
-                 Thread.sleep((long) (remainingTime / 1_000_000));
-              } catch (InterruptedException e) {
+         double nextDrawTime = System.nanoTime() + drawInterval;  
+         while(gameThread != null) {
+             
+             //1 UPDATE: update information such as character positions
+             update();
+             
+             //2 DRAW: draw the screen with the updated information
+             repaint();
+             
+             try {
+                 double remainingTime = nextDrawTime - System.nanoTime();
+                 remainingTime = remainingTime / 1000000;
+                 
+                 if (remainingTime < 0) {
+                     remainingTime = 0;
+                 }
+                 
+                 Thread.sleep((long)remainingTime);
+                 
+                 nextDrawTime += drawInterval;
+                 
+             } catch (InterruptedException e) {
                  e.printStackTrace();
-              }
-              nextDrawTime += drawInterval;
-           }
-
-            //UPDATE: update information such as character positions
-         update();
-
-            //DRAW: draw the screen with the updated information
-            repaint();
-            
-
-
-        }
-    }
-   
-    public void update() {
-       
-         player.update();
-       
-    }
-    public void paintComponent(Graphics g) {
-       super.paintComponent(g);
-       
+             }
+         }
+      }
+      public void update() {
+           player.update();  
+      }
+      public void paintComponent(Graphics g) {
+         super.paintComponent(g);
+         
          Graphics2D g2 = (Graphics2D)g;
-       
-         player.draw((Graphics2D)g2);
-       g2.dispose();
-    }
-      
-
-}
+         
+         //DRAW PLAYER
+         player.draw(g2);
+         
+         g2.dispose();
+      }
+   }
