@@ -112,6 +112,15 @@ public class player extends Entity  {
             direction = "right";
             x += speed;
         }
+        spriteCounter++;
+        if (spriteCounter > 12) {
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
     }
 
     public void draw(Graphics2D g2) {
@@ -124,7 +133,11 @@ public class player extends Entity  {
                 image = up1;
                 break;
             case "down":
-                image = down1;
+                if(spriteNum ==1){
+                    image = down1;
+                } if (spriteNum ==2){
+                    image = down2;
+                }
                 break;
             case "left":
                 image = left1;
