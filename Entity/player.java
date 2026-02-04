@@ -96,7 +96,9 @@ public class player extends Entity  {
     }
 
     public void update() {
-        if (keyH.upPressed == true) {
+
+        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
+            if (keyH.upPressed == true) {
             direction = "up";
             y -= speed;
         }
@@ -121,6 +123,9 @@ public class player extends Entity  {
             }
             spriteCounter = 0;
         }
+        }
+
+        
     }
 
     public void draw(Graphics2D g2) {
