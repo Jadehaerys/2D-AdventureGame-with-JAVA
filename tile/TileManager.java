@@ -48,6 +48,13 @@ public class TileManager {
             Tile tile5 = new Tile();
             tile5.image = load("/tiles/sand.png", "resources/tiles/sand.png");
             tile[5] = tile5;
+            Tile tile6 = new Tile();
+            tile6.image = load("/tiles/bridge.png", "resources/tiles/pondBottom.png");
+            tile[6] = tile6;
+            Tile tile7 = new Tile();
+            tile7.image = load("/tiles/road.png", "resources/tiles/pondTopM.png");
+            tile[7] = tile7;
+
             
        }catch(Exception e) {
            e.printStackTrace();
