@@ -11,10 +11,15 @@ public class player extends Entity  {
 
     GamePanel gp;
     KeyHandler keyH;
+    public final int screenX;
+    public final int screenY;
 
     public player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2 - (gp.tileSize / 2));
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2 - (gp.tileSize / 2));
+
         setDefaultValues();
         getPlayerImage();
 
@@ -24,8 +29,8 @@ public class player extends Entity  {
     
 
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = gp.tileSize * 23;
+        worldY = gp.tileSize * 21;
         speed = 4;
         direction = "down";
     }
@@ -68,12 +73,12 @@ public class player extends Entity  {
                 File f = new File("resources/player/sprite_jade3Left.png");
                 if (f.exists()) left1 = javax.imageio.ImageIO.read(f); else System.err.println("Missing resource: /player/sprite_jade3Left.png");
             }
-            is = getClass().getResourceAsStream("/player/sprite_jade3Left.png");
+            is = getClass().getResourceAsStream("/player/sprite_jade3Left2.png");
             if (is != null) {
                 left2 = javax.imageio.ImageIO.read(is);
             } else {
-                File f = new File("resources/player/sprite_jade3Left.png");
-                if (f.exists()) left2 = javax.imageio.ImageIO.read(f); else System.err.println("Missing resource: /player/sprite_jade3Left.png");
+                File f = new File("resources/player/sprite_jade3Left2.png");
+                if (f.exists()) left2 = javax.imageio.ImageIO.read(f); else System.err.println("Missing resource: /player/sprite_jade3Left2.png");
             }
             is = getClass().getResourceAsStream("/player/sprite_jade2Right.png");
             if (is != null) {
@@ -82,12 +87,12 @@ public class player extends Entity  {
                 File f = new File("resources/player/sprite_jade2Right.png");
                 if (f.exists()) right1 = javax.imageio.ImageIO.read(f); else System.err.println("Missing resource: /player/sprite_jade2Right.png");
             }
-            is = getClass().getResourceAsStream("/player/sprite_jade2Right.png");
+            is = getClass().getResourceAsStream("/player/sprite_jade2Right2.png");
             if (is != null) {
                 right2 = javax.imageio.ImageIO.read(is);
             } else {
-                File f = new File("resources/player/sprite_jade2Right.png");
-                if (f.exists()) right2 = javax.imageio.ImageIO.read(f); else System.err.println("Missing resource: /player/sprite_jade2Right.png");
+                File f = new File("resources/player/sprite_jade2Right2.png");
+                if (f.exists()) right2 = javax.imageio.ImageIO.read(f); else System.err.println("Missing resource: /player/sprite_jade2Right2.png");
             }
 
         } catch (IOException e) {
@@ -100,19 +105,19 @@ public class player extends Entity  {
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
             if (keyH.upPressed == true) {
             direction = "up";
-            y -= speed;
+            worldY -= speed;
         }
         if (keyH.downPressed == true) {
             direction = "down";
-            y += speed;
+            worldY += speed;
         }
         if (keyH.leftPressed == true) {
             direction = "left";
-            x -= speed;
+            worldX -= speed;
         }
         if (keyH.rightPressed == true) {
             direction = "right";
-            x += speed;
+            worldX += speed;
         }
         spriteCounter++;
         if (spriteCounter > 12) {
@@ -145,13 +150,21 @@ public class player extends Entity  {
                 }
                 break;
             case "left":
-                image = left1;
+                if(spriteNum ==1){
+                    image = left1;
+                } if (spriteNum ==2){
+                    image = left2;
+                }
                 break;
             case "right":
-                image = right1;
+                if(spriteNum ==1){
+                    image = right1;
+                } if (spriteNum ==2){
+                    image = right2;
+                }
                 break;
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
     }
     
     
