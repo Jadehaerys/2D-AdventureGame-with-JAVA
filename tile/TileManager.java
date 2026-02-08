@@ -27,6 +27,8 @@ public class TileManager {
         return javax.imageio.ImageIO.read(new File(fallbackPath));
     }
 
+    
+
     public void getTileImage() {
        try{
            Tile tile0 = new Tile();
@@ -53,9 +55,11 @@ public class TileManager {
             Tile tile6 = new Tile();
             tile6.image = load("/tiles/bridge.png", "resources/tiles/pondBottom.png");
             tile[6] = tile6;
+            tile[6].collision = true;
             Tile tile7 = new Tile();
             tile7.image = load("/tiles/road.png", "resources/tiles/pondTopM.png");
             tile[7] = tile7;
+            tile[7].collision = true;
 
             
        }catch(Exception e) {
