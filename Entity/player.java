@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
+
 public class player extends Entity  {
 
     GamePanel gp;
@@ -23,8 +24,8 @@ public class player extends Entity  {
 
         setDefaultValues();
         getPlayerImage();
-        solidArea = new Rectangle(8, 16, 32, 32);
-        
+        solidArea = new Rectangle(8, 16, 24, 24);
+
 
     }
 
@@ -107,20 +108,42 @@ public class player extends Entity  {
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
             if (keyH.upPressed == true) {
             direction = "up";
-            worldY -= speed;
+            
         }
         if (keyH.downPressed == true) {
             direction = "down";
-            worldY += speed;
+           
         }
         if (keyH.leftPressed == true) {
             direction = "left";
-            worldX -= speed;
+            
         }
         if (keyH.rightPressed == true) {
             direction = "right";
-            worldX += speed;
+            
         }
+        //CHECK TILE COLLISION
+        collisionOn = false;
+        gp.cChecker.checkTile(this);
+
+        //IF COLLISION IS FALSE, PLAYER CAN MOVE
+        if (collisionOn == false) {
+            switch(direction) {
+                case "up":
+                    worldY -= speed;
+                    break;
+                case "down":
+                    worldY += speed;
+                    break;
+                case "left":
+                    worldX -= speed;
+                    break;
+                case "right":
+                    worldX += speed;
+                    break;
+            }
+        }
+
         spriteCounter++;
         if (spriteCounter > 12) {
             if (spriteNum == 1) {
