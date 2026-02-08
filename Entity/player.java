@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.File;
 import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 public class player extends Entity  {
 
     GamePanel gp;
@@ -22,7 +23,8 @@ public class player extends Entity  {
 
         setDefaultValues();
         getPlayerImage();
-
+        solidArea = new Rectangle(8, 16, 32, 32);
+        
 
     }
 
