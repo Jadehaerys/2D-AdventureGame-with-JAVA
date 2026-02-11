@@ -18,7 +18,7 @@ public class AssetSetter {
 
         gp.obj[2] = new object.OBJ_Chest();
         gp.obj[2].worldX = 10 * gp.tileSize;
-        gp.obj[2].worldY = 10 * gp.tileSize;
+        gp.obj[2].worldY = 9 * gp.tileSize;
         
     }
 }
