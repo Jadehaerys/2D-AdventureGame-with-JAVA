@@ -20,5 +20,8 @@ public class AssetSetter {
         gp.obj[2].worldX = 10 * gp.tileSize;
         gp.obj[2].worldY = 9 * gp.tileSize;
         
+        gp.obj[3] = new object.OBJ_Sword();
+        gp.obj[3].worldX = 15 * gp.tileSize;
+        gp.obj[3].worldY = 15 * gp.tileSize;
     }
 }
