@@ -8,13 +8,17 @@ import java.io.InputStream;
 import java.io.File;
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
-
+import object.OBJ_Chest;
+import object.OBJ_Door;
 public class player extends Entity  {
 
     GamePanel gp;
     KeyHandler keyH;
     public final int screenX;
     public final int screenY;
+        public boolean hasKey = false;
+        int hasChest = 0;
+        int haskeyCounter = 0;
 
     public player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -25,6 +29,8 @@ public class player extends Entity  {
         setDefaultValues();
         getPlayerImage();
         solidArea = new Rectangle(8, 16, 24, 24);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
 
 
     }
@@ -125,6 +131,10 @@ public class player extends Entity  {
         //CHECK TILE COLLISION
         collisionOn = false;
         gp.cChecker.checkTile(this);
+        
+        //CHECK OBJECT COLLISION
+        int objIndex = gp.cChecker.checkObject(this, true);
+        pickUpObject(objIndex);
 
         //IF COLLISION IS FALSE, PLAYER CAN MOVE
         if (collisionOn == false) {
@@ -156,6 +166,33 @@ public class player extends Entity  {
         }
 
         
+    }
+    public void pickUpObject(int index) {
+        if (index != 999) {
+            String objectName = gp.obj[index].name;
+            
+            switch (objectName) {
+                case "Key":
+                        hasKey = true;
+                        haskeyCounter++;
+                    gp.obj[index] = null;
+                    System.out.println("You picked up a key!");
+                  
+                    break;
+                case "Door":
+                    if (gp.player.hasKey == true) {
+                        gp.obj[index] = null;
+                        System.out.println("You opened the door!");
+                    } else {
+                        System.out.println("You need a key to open the door.");
+                    }
+                    break;
+                case "Chest":
+                    gp.obj[index] = null;
+                    System.out.println("You found a treasure in the chest!");
+                    break;
+            }
+        }
     }
 
     public void draw(Graphics2D g2) {
