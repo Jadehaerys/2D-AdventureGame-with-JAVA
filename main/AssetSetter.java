@@ -1,5 +1,5 @@
 package main;
-
+//gay
 public class AssetSetter {
     GamePanel gp;
 
