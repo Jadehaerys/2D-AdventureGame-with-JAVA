@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
 import object.OBJ_Chest;
 import object.OBJ_Door;
+
 public class player extends Entity  {
 
     GamePanel gp;
@@ -173,6 +174,7 @@ public class player extends Entity  {
             
             switch (objectName) {
                 case "Key":
+                        gp.playSE(1);
                         hasKey = true;
                         haskeyCounter++;
                     gp.obj[index] = null;
@@ -181,6 +183,7 @@ public class player extends Entity  {
                     break;
                 case "Door":
                     if (gp.player.hasKey == true) {
+                        gp.playSE(4);
                         gp.obj[index] = null;
                         System.out.println("You opened the door!");
                     } else {
@@ -190,6 +193,12 @@ public class player extends Entity  {
                 case "Chest":
                     gp.obj[index] = null;
                     System.out.println("You found a treasure in the chest!");
+                    break;
+                case "Boots":
+                    gp.playSE(2);
+                    speed += 2;
+                    gp.obj[index] = null;
+                    System.out.println("Your speed has increased!");
                     break;
             }
         }
