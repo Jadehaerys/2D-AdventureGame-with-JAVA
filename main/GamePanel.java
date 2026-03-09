@@ -40,7 +40,8 @@ public class GamePanel extends JPanel implements Runnable {
    //ENTITY AND OBJECT
    public player player = new player(this, keyH); 
    public SuperObject obj[] = new SuperObject[10];
-   public Sound sound = new Sound();
+   public Sound music = new Sound();
+   public Sound se = new Sound();
 
 
    
@@ -120,16 +121,16 @@ public class GamePanel extends JPanel implements Runnable {
       }
 
       public void playMusic(int i) {
-          sound.setFile(i);
-          sound.play();
-          sound.loop();
+          music.setFile(i);
+          music.play();
+          music.loop();
       }
         public void stopMusic() {
-            sound.stop();
+            music.stop();
         }
         public void playSE(int i) {
-            sound.setFile(i);
-            sound.play();
+            se.setFile(i);
+            se.play();
         }
     
    }
